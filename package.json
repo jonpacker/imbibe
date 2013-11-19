@@ -1,6 +1,6 @@
 {
   "name": "imbibe",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "consume a json api, minus the boilerplate",
   "main": "imbibe.js",
   "scripts": {
