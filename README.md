@@ -22,9 +22,6 @@ npm install --save imbibe
 
 ### `imbibe(url(s), [opts, ] callback)`
 
-Returns the [request](https://github.com/mikeal/request) object(s) that are
-generated (formatted similarly to how the result data is formatted).
-
 * `url(s)` a string representing a URL that points to a json resource, or an
   array of URLs, or an object mapping keys to urls that will be used to compile
   the result object.
