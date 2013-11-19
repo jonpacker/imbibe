@@ -34,3 +34,13 @@ npm install --save imbibe
   data is either the parsed result of the request, or an array of results, or an
   object mapping the results to the request keys, depending on the value of
   `url`.
+
+### `imbibe(serviceUrl)`
+
+Creates an service consumer using `serviceUrl` as the root. The returned function
+is just like `imbibe`, but the `url` argument only has to be a path relative to
+`serviceUrl`, rather than an absolute url.
+
+* `serviceUrl` the service root url. For example, `'http://localhost:6023'`. If
+  you add a trailing slash, remember that all of the paths you use on the
+  resulting function should not have a leading slash.
