@@ -42,4 +42,13 @@ describe('imbibe', function() {
       done();
     });
   });
+
+  it('should pass back error on error', function(done) {
+    imbibe(serverRoot + '/bad', function(err, data) {
+      assert(err);
+      assert.equal(err.statusCode, 400);
+      assert.equal(err.message, 'Bad Request');
+      done();
+    });
+  });
 });
