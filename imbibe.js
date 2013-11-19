@@ -1,11 +1,21 @@
 var request = require('request');
 var codes = require('http').STATUS_CODES;
+var async = require('async');
 
-module.exports = function(url, opts, callback) {
+var imbibe = module.exports = function(url, opts, callback) {
   if (typeof opts == 'function') {
     callback = opts;
     opts = {};
   }
+
+  if (Array.isArray(url))
+    return async.map(url, function(url, callback) {
+      imbibe(url, opts, callback);
+    }, callback);
+  else if (typeof url == 'object')
+    return async.parallel(Object.keys(url).reduce(function(obj, key) {
+      return obj[key] = imbibe.bind(null, url[key], opts), obj;
+    }, {}), callback);
 
   opts.json = true;
   opts.url = url;
