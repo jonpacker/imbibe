@@ -6,6 +6,10 @@ var imbibe = module.exports = function(url, opts, callback) {
   if (typeof opts == 'function') {
     callback = opts;
     opts = {};
+  } else if (opts == null && callback == null) {
+    return function imbiber(path, opts, callback) {
+      return imbibe(url + path, opts, callback);
+    };
   }
 
   if (Array.isArray(url))
