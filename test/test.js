@@ -51,4 +51,30 @@ describe('imbibe', function() {
       done();
     });
   });
+
+  it('should take multiple requests', function(done) {
+    var reqs = [
+      serverRoot + '/first',
+      serverRoot + '/second'
+    ];
+    imbibe(reqs, function(err, data) {
+      assert(!err);
+      assert.equal(data[0].value, 'first');
+      assert.equal(data[1].value, 'second');
+      done();
+    });
+  });
+
+  it('should take multiple named requests', function(done) {
+    var reqs = {
+      first: serverRoot + '/first',
+      second: serverRoot + '/second'
+    };
+    imbibe(reqs, function(err, data) {
+      assert(!err);
+      assert.equal(data.first.value, 'first');
+      assert.equal(data.second.value, 'second');
+      done();
+    });
+  });
 });
