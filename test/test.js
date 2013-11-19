@@ -1,5 +1,6 @@
 var http = require('http');
 var imbibe = require('../');
+var assert = require('assert');
 
 describe('imbibe', function() {
   var serverRoot;
@@ -30,5 +31,14 @@ describe('imbibe', function() {
   });
   after(function(done) {
     server.close(done);
+  });
+
+  it('should fetch and parse a json object', function(done) {
+    imbibe(serverRoot + '/first', function(err, data) {
+      assert(!err, err);
+      assert(data);
+      assert.equal(data.value, 'first');
+      done();
+    });
   });
 });
