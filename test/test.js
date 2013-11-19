@@ -27,6 +27,7 @@ describe('imbibe', function() {
     server.listen(0, function(err) {
       if (err) return done(err);
       serverRoot = 'http://localhost:' + server.address().port;
+      done();
     });
   });
   after(function(done) {
