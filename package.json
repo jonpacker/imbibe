@@ -22,5 +22,12 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jonpacker/imbibe/issues"
+  },
+  "dependencies": {
+    "request": "~2.27.0",
+    "async": "~0.2.9"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
   }
 }
