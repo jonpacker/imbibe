@@ -77,4 +77,13 @@ describe('imbibe', function() {
       done();
     });
   });
+
+  it('should take a prefix to make an api consumer', function(done) {
+    var api = imbibe(serverRoot);
+    api('/first', function(err, data) {
+      assert(!err);
+      assert.equal(data.value, 'first');
+      done();
+    });
+  });
 });
