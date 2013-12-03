@@ -86,4 +86,24 @@ describe('imbibe', function() {
       done();
     });
   });
+
+  it('should take a prefix and still work with an array', function(done) {
+    var api = imbibe(serverRoot);
+    api(['/first', '/second'], function(err, data) {
+      assert(!err);
+      assert.equal(data[0].value, 'first');
+      assert.equal(data[1].value, 'second');
+      done();
+    });
+  });
+
+  it('should take a prefix and still work with an object', function(done) {
+    var api = imbibe(serverRoot);
+    api({first: '/first', second: '/second'}, function(err, data) {
+      assert(!err);
+      assert.equal(data.first.value, 'first');
+      assert.equal(data.second.value, 'second');
+      done();
+    });
+  });
 });
