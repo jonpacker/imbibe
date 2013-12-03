@@ -8,7 +8,12 @@ var imbibe = module.exports = function(url, opts, callback) {
     opts = {};
   } else if (opts == null && callback == null) {
     return function imbiber(path, opts, callback) {
-      return imbibe(url + path, opts, callback);
+      if (Array.isArray(path) || typeof path == 'object') {
+        for (var key in path) path[key] = url + path[key];
+      } else {
+        path = url + path;
+      }
+      return imbibe(path, opts, callback);
     };
   }
 
