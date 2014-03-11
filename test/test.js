@@ -19,6 +19,16 @@ describe('imbibe', function() {
       } else if (req.url == '/broken') {
         res.writeHead(200);
         res.end("{ value: 'broken }");
+      } else if (req.url == '/post' && 
+                 req.method == 'POST' &&
+                 req.headers['content-type'] == 'application/json') {
+        var data = '';
+        req.on('data', function(ch) { data += ch });
+        req.on('end', function() { 
+          data = JSON.parse(data);
+          res.writeHead(200);
+          res.end(JSON.stringify(data));
+        });
       } else {
         res.writeHead(404);
         res.end();
@@ -103,6 +113,22 @@ describe('imbibe', function() {
       assert(!err);
       assert.equal(data.first.value, 'first');
       assert.equal(data.second.value, 'second');
+      done();
+    });
+  });
+
+  it('should send a json object', function(done) {
+    var api = imbibe(serverRoot);
+    var megaObject = {
+      thing: 1,
+      stuff: ['thing', true, 25.3],
+      nested: {
+        array: ['omg', 5]
+      }
+    };
+    api('/post', {method: 'POST', json: megaObject}, function(err, data) {
+      assert(!err, err);
+      assert.deepEqual(megaObject, data);
       done();
     });
   });
