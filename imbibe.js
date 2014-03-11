@@ -26,7 +26,7 @@ var imbibe = module.exports = function(url, opts, callback) {
       return obj[key] = imbibe.bind(null, url[key], opts), obj;
     }, {}), callback);
 
-  opts.json = true;
+  opts.json = opts.json || true;
   opts.url = url;
 
   return request(opts, function(err, response, body) {
