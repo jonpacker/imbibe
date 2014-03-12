@@ -32,8 +32,12 @@ var imbibe = module.exports = function(url, opts, callback) {
   return request(opts, function(err, response, body) {
     if (err) callback(err);
     else if (response.statusCode >= 300) {
-      if (body) return callback(new Error(body));
-      var error = new Error(codes[response.statusCode]);
+      var error;
+      if (body) {
+        error = new Error(body);
+      } else {
+        error = new Error(codes[response.statusCode]);
+      }
       error.statusCode = response.statusCode;
       error.response = response;
       callback(error);
