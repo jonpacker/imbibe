@@ -132,4 +132,75 @@ describe('imbibe', function() {
       done();
     });
   });
+
+  describe('promise support', function () {
+    it('should fetch and parse a json object', async function() {
+      const data =await imbibe(serverRoot + '/first')
+      assert(data);
+      assert.equal(data.value, 'first');
+    });
+
+    it('should pass back error on error', async function() {
+      try {
+        await imbibe(serverRoot + '/bad');
+        assert.fail('should have thrown error');
+      } catch (err) {
+        assert.equal(err.statusCode, 400);
+        assert.equal(err.message, 'Bad Request');
+      }
+    });
+
+    it('should take multiple requests', async function() {
+      const reqs = [
+        serverRoot + '/first',
+        serverRoot + '/second'
+      ];
+      const data = await imbibe(reqs)
+      assert.equal(data[0].value, 'first');
+      assert.equal(data[1].value, 'second');
+    });
+
+    it('should take multiple named requests', async function() {
+      const reqs = {
+        first: serverRoot + '/first',
+        second: serverRoot + '/second'
+      };
+      const data = await imbibe(reqs)
+      assert.equal(data.first.value, 'first');
+      assert.equal(data.second.value, 'second');
+    });
+
+    it('should take a prefix to make an api consumer', async function() {
+      const api = imbibe.using(serverRoot);
+      const data = await api('/first')
+      assert.equal(data.value, 'first');
+    });
+
+    it('should take a prefix and still work with an array', async function() {
+      const api = imbibe.using(serverRoot);
+      const data = await api(['/first', '/second'])
+      assert.equal(data[0].value, 'first');
+      assert.equal(data[1].value, 'second');
+    });
+
+    it('should take a prefix and still work with an object', async function() {
+      const api = imbibe.using(serverRoot);
+      const data = await api({first: '/first', second: '/second'})
+      assert.equal(data.first.value, 'first');
+      assert.equal(data.second.value, 'second');
+    });
+
+    it('should send a json object', async function() {
+      const api = imbibe.using(serverRoot);
+      const megaObject = {
+        thing: 1,
+        stuff: ['thing', true, 25.3],
+        nested: {
+          array: ['omg', 5]
+        }
+      };
+      const data = await api('/post', {method: 'POST', json: megaObject})
+      assert.deepEqual(megaObject, data);
+    });
+  })
 });
