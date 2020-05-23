@@ -89,7 +89,7 @@ describe('imbibe', function() {
   });
 
   it('should take a prefix to make an api consumer', function(done) {
-    var api = imbibe(serverRoot);
+    var api = imbibe.using(serverRoot);
     api('/first', function(err, data) {
       assert(!err);
       assert.equal(data.value, 'first');
@@ -98,7 +98,7 @@ describe('imbibe', function() {
   });
 
   it('should take a prefix and still work with an array', function(done) {
-    var api = imbibe(serverRoot);
+    var api = imbibe.using(serverRoot);
     api(['/first', '/second'], function(err, data) {
       assert(!err);
       assert.equal(data[0].value, 'first');
@@ -108,7 +108,7 @@ describe('imbibe', function() {
   });
 
   it('should take a prefix and still work with an object', function(done) {
-    var api = imbibe(serverRoot);
+    var api = imbibe.using(serverRoot);
     api({first: '/first', second: '/second'}, function(err, data) {
       assert(!err);
       assert.equal(data.first.value, 'first');
@@ -118,7 +118,7 @@ describe('imbibe', function() {
   });
 
   it('should send a json object', function(done) {
-    var api = imbibe(serverRoot);
+    var api = imbibe.using(serverRoot);
     var megaObject = {
       thing: 1,
       stuff: ['thing', true, 25.3],

@@ -3,7 +3,7 @@ const codes = require('http').STATUS_CODES;
 const async = require('async');
 
 const imbibe = module.exports = function(url, opts, callback) {
-  if (typeof opts == 'function') {
+  if (typeof opts == 'function' || !opts) {
     callback = opts;
     opts = {};
   }
@@ -59,7 +59,7 @@ const imbibe = module.exports = function(url, opts, callback) {
       .catch(callback)
     return requestObj
   } else {
-    return reuqestPromise
+    return requestPromise
   }
 };
 
