@@ -24,8 +24,8 @@
     "url": "https://github.com/jonpacker/imbibe/issues"
   },
   "dependencies": {
-    "async": "^2.0.0-rc.5",
-    "request": "^2.72.0"
+    "async": "2.0",
+    "request": "^2"
   },
   "devDependencies": {
     "mocha": "~1.14.0"
