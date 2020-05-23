@@ -22,7 +22,7 @@ const imbibe = module.exports = function(url, opts, callback) {
         return obj[key] = imbibe.bind(null, url[key], opts), obj;
       }, {}), callback);
     } else {
-      Promise.all(Object.keys(url).map(async key => {
+      return Promise.all(Object.keys(url).map(async key => {
         const result = await imbibe(url[key], opts)
         return { key, result }
       })).then(allResults => allResults.reduce((output, { key, result }) => {
