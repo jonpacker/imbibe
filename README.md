@@ -35,7 +35,7 @@ npm install --save imbibe
   object mapping the results to the request keys, depending on the value of
   `url`.
 
-### `imbibe(serviceUrl)`
+### `imbibe.using(serviceUrl)`
 
 Creates an service consumer using `serviceUrl` as the root. The returned function
 is just like `imbibe`, but the `url` argument only has to be a path relative to
