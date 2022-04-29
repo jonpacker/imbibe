@@ -24,7 +24,7 @@
     "url": "https://github.com/jonpacker/imbibe/issues"
   },
   "dependencies": {
-    "async": "2.0",
+    "async": "2.6",
     "request": "^2"
   },
   "devDependencies": {
